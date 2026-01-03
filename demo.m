@@ -13,10 +13,6 @@ for testnum=[1]   %一共有12组实验，1:12
             load('berlin_feature-test219-end');
             load('berlin_label-test219-end');
             Xs=double(feature); clear feature
-
-
-
-  
             Ys=double(label);   clear label
             load('CVE_feature-test351-end');
             load('CVE_label-test351-end');
@@ -108,14 +104,6 @@ for testnum=[1]   %一共有12组实验，1:12
             Ys=double(label);   clear label
             load('IEMOCAP_feature-test2997-end');
             load('IEMOCAP_label-test2997-end');
-         case 13
-            name='RML-EN';
-            load('RML_5_1582');
-            load('RML_5_label');
-            Xs=double(feature); clear feature
-            Ys=double(label);   clear label
-            load('enterface_5_1582');
-            load('enterface_5_label');
             
         otherwise
             break;
@@ -135,9 +123,6 @@ for testnum=[1]   %一共有12组实验，1:12
     Xtest=normalization(Xtest',1);
     Xtest=Xtest';
     X=[Xs;Xtrain;Xtest];
-     
-    % noise_level = 1e-3; % 如果波动不够，可以改为 1e-4；如果太大，改为 1e-6
-    % X = X + noise_level * randn(size(X)); 
     
     [COEFF,SCORE, latent] = pca(X);
     SelectNum = cumsum(latent)./sum(latent);
@@ -168,11 +153,12 @@ for testnum=[1]   %一共有12组实验，1:12
     
     %% Experiments
 
-    for alpha=0.01
-        for lambda=100
-            for beta=1
-                % for rho=0
-                    for gamma=100
+    p=[0.001 0.01 0.1 1 10 100 1000];
+    for alpha=p
+        for lambda=p
+            for beta=p
+                % for rho=p
+                    for gamma=p
                 loop=loop+1;
                 options.alpha=alpha;
                 options.lambda=lambda;
@@ -181,7 +167,7 @@ for testnum=[1]   %一共有12组实验，1:12
                 options.gamma=gamma;
                 
                 
-                [P,obj] = CDLSL_final_p(Xs,Xtrain,Ys,Ytrain,options,loop,obj);
+                [P,obj] = DGCWSL(Xs,Xtrain,Ys,Ytrain,options,loop,obj);
                 
                 Zs=P'*Xs';   %c*n
                 Zs = Zs*diag(sparse(1./sqrt(sum(Zs.^2))));
@@ -214,4 +200,5 @@ for testnum=[1]   %一共有12组实验，1:12
     end
     
 end
+
 % 
