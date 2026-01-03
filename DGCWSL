@@ -1,9 +1,9 @@
-function [P,obj] = CDLSL_final_p(Xs,Xt,Ys,Yt,options,loop,obj)
-% Ö÷ÏîÎªÍ¼
+function [P,obj] = DGCWSL(Xs,Xt,Ys,Yt,options,loop,obj)
+% ä¸»é¡¹ä¸ºå›¾
 
 % ------------ Initialization  ---------- %
 % rand('seed',6666);
-rng('default');    % »Ö¸´ĞÂÉú³ÉÆ÷£¨Èç¹ûÖ®Ç°ÓĞÀÏ½Ó¿Ú²Ù×÷£©
+rng('default');    % æ¢å¤æ–°ç”Ÿæˆå™¨ï¼ˆå¦‚æœä¹‹å‰æœ‰è€æ¥å£æ“ä½œï¼‰
 rng('shuffle');
 X=[Xs;Xt];
 X=X';
@@ -77,7 +77,7 @@ for iter = 1:options.max_iter
     Dz  = diag(1./(vv));
     % Zt = P'*Xt';
     % Zt = Zt*diag(sparse(1./sqrt(sum(Zt.^2))));
-    % [~,Ytrain_pseudo] = max(Zt',[],2);  %¸üĞÂÎ±±êÇ©
+    % [~,Ytrain_pseudo] = max(Zt',[],2);  %æ›´æ–°ä¼ªæ ‡ç­¾
     % Y = [Ys;Ytrain_pseudo];
     % Y = Pre_label(Y);
     
@@ -87,7 +87,7 @@ for iter = 1:options.max_iter
 
     % -------------- obj --------------- %
     Item1=options.gamma*norm(W'*Xt-W'*Xs*Z,'fro')^2;
-    Item2=options.alpha*norm(S,'fro')^2;    %options.alpha*norm(Z-(Y+B¡ÑM),'fro')^2
+    Item2=options.alpha*norm(S,'fro')^2;    %options.alpha*norm(Z-(Y+BâŠ™M),'fro')^2
     Item3=options.lambda*norm(P,'fro')^2;
     Item4=trace(W'*X*LS*X'*W);
     Item5=options.gamma*trace(Z'*Lw1*Z);
