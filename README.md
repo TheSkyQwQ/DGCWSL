@@ -13,7 +13,7 @@ In recent years, cross-domain speech emotion recognition (SER) has attracted con
 If you find this project useful for your research, please cite:
 
 ```
-@ARTICLE{wang2025dynamic,
+@ARTICLE{wang2026dynamic,
   author={Wang, Yifan and Song, Peng and Fu, Siqi and Liu, Zhaowei and Wang, Changjia and Zheng, Wenming},
   journal={IEEE Transactions on Computational Social Systems}, 
   title={Dynamic Graph Consistent Weighted Subspace Learning for Cross-Domain Speech Emotion Recognition}, 
